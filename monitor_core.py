@@ -24,12 +24,12 @@ if Config.has_section('reddit'):
 	reddit = true
 	target_sub = Config.get('reddit','target')
 	botLogin = Config.get('reddit','login')
-	botPassword = Config.get('reddit','password
+	botPassword = Config.get('reddit','password')
 	if Config.has_option('reddit','request_size'):
 		request_size = Config.get('global','request_size')
 	else:
 		request_size = max_records
-else
+else:
 	reddit = false
 
 if reddit:
