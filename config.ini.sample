@@ -1,0 +1,11 @@
+# Configuration file for piglow-notifier.
+
+[global]
+	delay = # delay in seconds between passes.
+	max_records = # maximum number of records to grab on each pass; default 50.
+
+[reddit]
+	target = # target subreddit
+	login = # bot login
+	password = # bot password
+	request_size # number of records to grab on each pass; defaults to max_records if not set
