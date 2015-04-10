@@ -21,7 +21,7 @@ else:
 	max_records = 50
 
 if Config.has_section('reddit'):
-	reddit = true
+	reddit = True
 	target_sub = Config.get('reddit','target')
 	botLogin = Config.get('reddit','login')
 	botPassword = Config.get('reddit','password')
