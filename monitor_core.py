@@ -38,9 +38,15 @@ if reddit:
 	r.login(botLogin,botPassword)
 
 	already_done_posts = []
-	already_done_posts.append(pickle.load(open('bot-db-posts', 'rb')))
 	already_done_comments = []
-	already_done_comments.append(pickle.load(open('bot-db-comments', 'rb')))
+	try:
+		already_done_comments.append(pickle.load(open('bot-db-comments', 'rb')))
+	except IOError:
+		print('No comment database found')
+	try:
+		already_done_posts.append(pickle.load(open('bot-db-posts', 'rb')))
+	except IOError:
+		print('No post database found')
 
 colors = ['red','orange','yellow','green','blue','white']
 colorcodes = [[1,7,13],[2,8,14],[3,9,15],[4,10,16],[5,11,17],[6,12,18]]
