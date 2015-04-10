@@ -11,12 +11,12 @@ Config = configparser.ConfigParser()
 Config.read('config.ini')
 
 if Config.has_option('global','delay'):
-	scan_delay = Config.get('global','delay')
+	scan_delay = int(Config.get('global','delay'))
 else:
 	scan_delay = 30
 	
 if Config.has_option('global','max_records'):
-	max_records = Config.get('global','max_records')
+	max_records = int(Config.get('global','max_records'))
 else:
 	max_records = 50
 
@@ -26,7 +26,7 @@ if Config.has_section('reddit'):
 	botLogin = Config.get('reddit','login')
 	botPassword = Config.get('reddit','password')
 	if Config.has_option('reddit','request_size'):
-		request_size = Config.get('global','request_size')
+		request_size = int(Config.get('global','request_size'))
 	else:
 		request_size = max_records
 else:
