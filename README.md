@@ -5,7 +5,4 @@ Dependencies:
   - PRAW (https://praw.readthedocs.org/)
   - PyGlow (https://github.com/benleb/PyGlow)
   
-Their installation may be accomplished using the following commands:
-
-    pip install git+https://github.com/benleb/PyGlow.git
-    pip install praw
+There are various other dependencies required to get those working and to set up a Raspberry Pi to talk to i2c devices; explaining them is outside the scope of this document at this time.
