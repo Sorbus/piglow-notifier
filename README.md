@@ -6,5 +6,6 @@ Dependencies:
   - PyGlow (https://github.com/benleb/PyGlow)
   
 Their installation may be accomplished using the following commands:
-    $ pip install git+https://github.com/benleb/PyGlow.git
-    $ pip install praw
+
+    pip install git+https://github.com/benleb/PyGlow.git
+    pip install praw
