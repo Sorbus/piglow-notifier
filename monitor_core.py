@@ -3,7 +3,7 @@ import praw
 import pickle
 import atexit
 import configparser
-import PyGlow
+from PyGlow import PyGlow
 
 pyglow = PyGlow()
 
