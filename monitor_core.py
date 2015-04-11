@@ -26,7 +26,7 @@ if Config.has_section('reddit'):
 	botLogin = Config.get('reddit','login')
 	botPassword = Config.get('reddit','password')
 	if Config.has_option('reddit','request_size'):
-		request_size = int(Config.get('global','request_size'))
+		request_size = int(Config.get('reddit','request_size'))
 	else:
 		request_size = max_records
 else:
@@ -112,7 +112,7 @@ def shutdown():
 
 def clear(array):
 	removed = 0
-	while len(array) > 50:
+	while len(array) > max_records:
 		array.pop(0)
 		removed = removed + 1
 #	print('Removed ' + str(removed) + ' entries from array, new size ' + str(len(array)))
