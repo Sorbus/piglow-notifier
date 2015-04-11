@@ -3,7 +3,6 @@ import praw
 import pickle
 import atexit
 import configparser
-import sqlite3
 from PyGlow import PyGlow
 
 pyglow = PyGlow()
@@ -20,11 +19,6 @@ if Config.has_option('global','max_records'):
 	max_records = int(Config.get('global','max_records'))
 else:
 	max_records = 50
-	
-if Config.has_option('global','database'):
-	database = int(Config.get('global','database'))
-else:
-	database = 'notifier.db'
 
 if Config.has_section('reddit'):
 	reddit = True
@@ -38,18 +32,21 @@ if Config.has_section('reddit'):
 else:
 	reddit = false
 
-db = None
-	
-try:
-	db = sqlite3.connect(database)
-except sqlite3.Error, e:
-	print "Error %s:" % e.args[0]
-	sys.exit(1)
-	
 if reddit:
 	r = praw.Reddit('Subreddit Activity Monitor/0.5 by /u/Fourdots')
 	r.config._ssl_url = None
 	r.login(botLogin,botPassword)
+
+	already_done_posts = []
+	already_done_comments = []
+	try:
+		already_done_comments.append(pickle.load(open('bot-db-comments', 'rb')))
+	except IOError:
+		print('No comment database found')
+	try:
+		already_done_posts.append(pickle.load(open('bot-db-posts', 'rb')))
+	except IOError:
+		print('No post database found')
 
 colors = ['red','orange','yellow','green','blue','white']
 colorcodes = [[1,7,13],[2,8,14],[3,9,15],[4,10,16],[5,11,17],[6,12,18]]
@@ -112,8 +109,6 @@ def startup():
 
 def shutdown():
 	pyglow.all(0)
-	if db:
-		db.close()
 
 def clear(array):
 	removed = 0
@@ -126,9 +121,9 @@ atexit.register(shutdown)
 
 startup()
 
-if reddit:
-	subreddit = r.get_subreddit(target_sub)
+subreddit = r.get_subreddit(target_sub)
 
+if reddit:
 	while True:
 		comments = 0;
 		submissions = 0;
@@ -158,13 +153,6 @@ if reddit:
 			pulseIn()
 			submissions = submissions - 1
 		print('Cycle complete, waiting')
-		
-		saved_comments = open(comment_db, 'w+')
-		pickle.dump(already_done_comments, saved_comments)
-		saved_comments.close()
-		
-		saved_posts = open(post_db, 'w+')
-		pickle.dump(already_done_posts, saved_posts)
-		saved_posts.close()
-		
+		pickle.dump(already_done_comments, open('bot-db-comments', 'wb'))
+		pickle.dump(already_done_posts, open('bot-db-posts', 'wb'))
 		time.sleep(scan_delay)
