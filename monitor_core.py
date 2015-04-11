@@ -112,7 +112,7 @@ def shutdown():
 
 def clear(array):
 	removed = 0
-	while len(array) > max_records:
+	while len(array) > 50:
 		array.pop(0)
 		removed = removed + 1
 #	print('Removed ' + str(removed) + ' entries from array, new size ' + str(len(array)))
